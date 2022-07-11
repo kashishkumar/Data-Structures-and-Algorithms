@@ -115,6 +115,8 @@ def count_rotations(nums):
 def test_cases_rotate_array():
     tests = []
     tests.append({"input": {"nums": [5, 6, 9, 0, 2, 3, 4]}, "output": 3})
+    tests.append({"input": {"nums": [7, 8, 1, 2, 3, 4, 5]}, "output": 2})
+    tests.append({"input": {"nums": [5, 7, 8, 9, 1, 3, 4]}, "output": 4})
     tests.append({"input": {"nums": [0, 2, 3, 4]}, "output": 0})
     tests.append({"input": {"nums": []}, "output": -1})
     return tests
@@ -125,3 +127,36 @@ tests_rotate = test_cases_rotate_array()
 evaluate_test_cases(count_rotations, tests_rotate)
 
 # complexity is linear and so need to find a different solution
+# Using binary search approach to find the rotation point
+def count_rotations_b(nums):
+    if len(nums) == 0:
+        return -1
+    else:
+        left, right = 0, len(nums) - 1
+        middle = left + right // 2
+        if middle == 0:
+            return 0
+        else:
+            while nums[middle] > nums[middle - 1]:
+                middle = left + right // 2
+                if middle == 0:
+                    return 0
+            return middle
+
+def count_rotations_binary(nums):
+    if len(nums) == 0:
+        return -1
+    else:
+        left = 0 
+        right = len(nums) - 1
+        middle = left + right // 2
+        while middle > 0 and nums[middle] > nums[middle - 1]:
+            print("left: {} ".format(left), "middle: {}".format(middle), "right: {} ".format(right))
+            if nums[middle] > right:
+                left = middle + 1
+            else:
+                right = middle - 1
+            middle = left + right//2
+        return middle
+
+evaluate_test_case(count_rotations_binary, tests_rotate[2])
