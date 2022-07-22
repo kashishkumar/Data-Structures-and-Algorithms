@@ -160,3 +160,6 @@ def count_rotations_binary(nums):
         return middle
 
 evaluate_test_case(count_rotations_binary, tests_rotate[2])
+
+# Create a data structure that can store 100 million records and 
+# perform insertion, search, update and list operations efficiently
